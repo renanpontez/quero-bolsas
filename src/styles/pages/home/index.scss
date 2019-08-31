@@ -1,0 +1,36 @@
+.year-nav {
+  text-align: right;
+}
+
+.add-scorlaship {
+  text-align: center;
+  color: $blackText;
+  font-size: 15px;
+  float:left;
+  
+  .card {
+    padding: 50% 30px;
+
+    .icon {
+      color: $mainBlue;
+      margin-bottom: 30px;
+    }
+
+    span {
+      display: block;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      max-width: 160px;
+      font-size: 12px;
+    }
+  }
+}
+
+

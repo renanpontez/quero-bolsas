@@ -1,0 +1,58 @@
+$heightSize: 80px;
+
+#TopBar {
+  text-align: center;
+  background-color: white;
+  height: $heightSize;
+  padding: 10px 40px;
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+
+  .how-works {
+    color: $secondaryBlue;
+    line-height: $heightSize;
+    float: left;
+  }
+
+  .divisor {
+    background-color: $grayBg;
+    width: 6px;
+    height: 100%;
+    margin: 0 20px;
+    float: left;
+  }
+
+  .talk-to-us {
+    color: $secondaryBlue;
+    float: left;
+    height: 80px;
+    width: 200px;
+
+    .whatsapp-icon {
+      float: left;
+      padding-top: 15px;
+      margin-right: 10px;
+      color: $green;
+      height: 100%;
+    }
+
+    .number,
+    .phrase {
+      display: block;
+    }
+    
+    .number {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .logo {
+    height: 100%;
+  }
+
+
+
+}
