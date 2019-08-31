@@ -33,4 +33,115 @@
   }
 }
 
+#AddScolarshipModal {
+  .modal-content {
+    width: 500px;
+    padding: 20px;
+    height: auto;
+    max-height: 500px;
+    overflow-y: auto;
+  }
 
+  .filters {
+    .each-filter {
+      width: calc(50% - 20px);
+      float: left;
+      padding: 10px;
+
+      label {
+        font-size: 10px;
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      &.type {
+        .input-group {
+          width: calc(50% - 20px);
+          float: left;
+          padding-top: 10px;
+          padding-right: 10px;
+
+          label {
+            display: inline;
+          }
+
+          input {
+            float: left;
+            margin-top: 5px;
+
+            background-color: red;
+          }
+        }
+      }
+    }
+  }
+}
+
+.scholarship-list {
+  margin-left: 0;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    width: 100%;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+
+    .each-info {
+      float: left;
+      padding: 10px;
+    }
+
+    .check {
+      width: calc(10% - 20px);
+    }
+
+    .logo {
+      width: calc(15% - 20px);
+      text-align: center;
+
+      img {
+        width: 100%;
+      }
+    }
+    .course {
+      width: calc(35% - 20px);
+      
+      span {
+        display: block;
+      }
+      
+      .title {
+        font-weight: bold;
+        color: $mainBlue;
+        margin-bottom: 5px;
+      }
+      .level {
+        font-size: 11px;
+      }
+    }
+    .price {
+      text-align: right;
+      width: calc(40% - 20px);
+
+      .discount .value,
+      .monthly {
+        color: $green;
+        font-weight: bold;
+      }
+
+      .monthly {
+        font-size: 11px;
+      }
+
+      .discount,
+      .monthly {
+        display: block;
+      }
+    }
+  }
+}
