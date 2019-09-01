@@ -36,13 +36,26 @@
 #AddScolarshipModal {
   .modal-content {
     width: 500px;
-    padding: 20px;
+    padding: 0;
     height: auto;
-    max-height: 500px;
-    overflow-y: auto;
+
+    
+    .modal-title,
+    .modal-description {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .modal-title {
+      padding-top: 20px;
+    }
   }
 
+
   .filters {
+    padding-left:20px;;
+    padding-right: 20px;
+
+
     .each-filter {
       width: calc(50% - 20px);
       float: left;
@@ -69,7 +82,6 @@
           input {
             float: left;
             margin-top: 5px;
-
             background-color: red;
           }
         }
@@ -82,7 +94,11 @@
   margin-left: 0;
   list-style: none;
   padding-left: 0;
-
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 300px;
+  padding-right: 10px;
+  
   li {
     width: 100%;
     font-size: 12px;

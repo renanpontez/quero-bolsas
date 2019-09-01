@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from '../_common/Loading';
 
-const Scholarships = ({items}) => {
+const Scholarships = ({items, selectScholarship}) => {
   if(items) {
     return (
       <ul className="scholarship-list">
@@ -10,7 +10,7 @@ const Scholarships = ({items}) => {
           return (
             <li className="each-scholarship" key={i}>
               <div className="each-info check">
-                <input type="checkbox" />
+                <input type="checkbox" onClick={(e) => selectScholarship(e, item)} />
               </div>
               <div className="each-info logo">
                 <img src={item.university.logo_url} />
@@ -106,11 +106,18 @@ const AddScholarshipView = (props) => {
             <div style={{clear: "both"}} />
           
             <div className="main-content">
-              <Scholarships items={props.listOfScolarships} />
+              <Scholarships 
+                items={props.listOfScolarships}
+                selectScholarship={props.selectScholarship} />
             </div>
           </div>
 
           <div style={{clear: "both"}} />
+
+          <div className="modal-action">
+            <a className="btn outline" href="#">Cancelar</a>
+            <a className="btn contained" href="#" onClick={props.addSelectedScholarships}>Adicionar bolsa(s)</a>
+          </div>
         </div>
       </div>
     </div>

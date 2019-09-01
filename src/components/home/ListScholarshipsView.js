@@ -11,6 +11,8 @@ const ListScholarshipsView = (props) => {
             <div className="each-scholarship" key={i}>
               <div className="card">
                 {item.title}
+
+                <a href="#" onClick={() => props.removeScholarship(item)}>exluir</a>
               </div>
             </div>
           )    
