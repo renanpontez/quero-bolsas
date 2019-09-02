@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+
 body {
   margin: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: $grayBg;
 }
 
@@ -140,9 +143,8 @@ a {
   }
 }
 
-
 select {
-  height: 30px; 
+  height: 40px; 
   width: 100%;
   border: 1px solid #e3e3e3;
   border-radius: 3px;

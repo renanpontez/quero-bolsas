@@ -99,12 +99,12 @@ const AddScholarshipView = (props) => {
                 </label>
 
                 <div className="input-group">
-                  <input type="checkbox"/>
+                  <input type="checkbox" value={props.typeOfCourse.presential}/>
                   <label>Presencial</label>
 
                 </div>
                 <div className="input-group">
-                  <input type="checkbox" />
+                  <input type="checkbox" value={props.typeOfCourse.distance}/>
                   <label>A distância</label>
                 </div>
               </div>

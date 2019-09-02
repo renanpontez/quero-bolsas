@@ -19,6 +19,10 @@ class AddScholarshipContainer extends React.Component {
       recentlyAdded: false,
       cities: [],
       courses: [],
+      typeOfCourse: {
+        presential: true,
+        distance: true
+      }
     }
     
     this.selectScholarship = this.selectScholarship.bind(this);
@@ -92,7 +96,8 @@ class AddScholarshipContainer extends React.Component {
             selectScholarship={this.selectScholarship}
             addSelectedScholarships={this.addSelectedScholarships}
             filterCities={this.state.cities}
-            filterCourses={this.state.courses} />
+            filterCourses={this.state.courses}
+            typeOfCourse={this.state.typeOfCourse} />
         }
       </>
     );
