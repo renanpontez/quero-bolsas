@@ -3,6 +3,9 @@ import ListScholarshipsView from './ListScholarshipsView';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/scholarshipAction';
+import objectAssign from 'object-assign';
+import { hash } from '../../helpers/hash';
+import AddScholarshipContainer from './AddScholarshipContainer';
 
 class ListScholarshipsContainer extends React.Component {
   constructor(props) {
@@ -13,6 +16,8 @@ class ListScholarshipsContainer extends React.Component {
 
   removeScholarship(item) {
     let _self = this;
+    item = objectAssign({}, item, { id: hash(item) });
+
     _self.props.actions.removeScholarship(item).then((res) => {
       console.log("OK");
     });
@@ -21,8 +26,10 @@ class ListScholarshipsContainer extends React.Component {
   render() {
     return (
       <>
+        <AddScholarshipContainer toggleAddScolarship={this.toggleAddScolarship} />
+
         <ListScholarshipsView 
-          items={this.props.items}
+          items={this.props.scholarships}
           removeScholarship={this.removeScholarship} />
       </>
     );

@@ -1,44 +1,64 @@
 import React from 'react';
 import AddScholarshipView from './AddScholarshipView';
+import AddScholarshipButton from './AddScholarshipButton';
 import { getScholarships } from '../../Api/coursesApi';
 import objectAssign from 'object-assign';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/scholarshipAction';
+import { hash } from '../../helpers/hash';
 
 class AddScholarshipContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      listOfScolarships: [],
+      addScholarshipShowing: false,
+      scholarships: [],
       scholarshipsChosen: [],
       recentlyAdded: false,
+      cities: [],
+      courses: [],
     }
-
+    
     this.selectScholarship = this.selectScholarship.bind(this);
     this.addSelectedScholarships = this.addSelectedScholarships.bind(this);
+    this.toggleAddScolarship = this.toggleAddScolarship.bind(this);
   }
 
   componentDidMount() {
+    this.updateScholarships();
+  } 
+
+  componentDidUpdate(prevProps) {
+    if(this.props.scholarships.length != prevProps.scholarships.length) {
+      this.updateScholarships();
+    }
+  }
+
+  updateScholarships() {
     let _self = this;
 
-    getScholarships().then(res => {
+    getScholarships(_self.props.scholarships).then(res => {
       if(res) {
-        return _self.setState({ listOfScolarships: res });
+        _self.setState({
+          scholarships: res.scholarships,
+          cities: res.cities,
+          courses: res.courses
+        });
       }
     });
-  } 
+  }
 
   selectScholarship(e, item) {
     let checked = e.target.checked;
     let newState = [...this.state.scholarshipsChosen];
 
     if(checked) {
-      newState.push(item);
+      newState.push(objectAssign({}, item, { id: hash(item) }));
     } else {
       newState = newState.filter((eachScholarship) => {
-        return (eachScholarship.full_price != item.full_price) ? eachScholarship : null;
+        return (eachScholarship.id != hash(item)) ? eachScholarship : null;
       });
     }
 
@@ -49,18 +69,31 @@ class AddScholarshipContainer extends React.Component {
     let _self = this;
 
     _self.props.actions.addScholarship(this.state.scholarshipsChosen).then((res) => {
-      return _self.props.toggleAddScolarship();
+      _self.toggleAddScolarship();
+    });
+  }
+
+  toggleAddScolarship() {
+    this.setState({ 
+      addScholarshipShowing: !this.state.addScholarshipShowing,
+      scholarshipsChosen: []
     });
   }
 
   render() {
     return (
       <>
-        <AddScholarshipView
-          toggleAddScolarship={this.props.toggleAddScolarship}
-          listOfScolarships={this.state.listOfScolarships}
-          selectScholarship={this.selectScholarship}
-          addSelectedScholarships={this.addSelectedScholarships} />
+        <AddScholarshipButton toggleAddScolarship={this.toggleAddScolarship} />
+
+        {this.state.addScholarshipShowing && 
+          <AddScholarshipView
+            toggleAddScolarship={this.toggleAddScolarship}
+            listOfScolarships={this.state.scholarships}
+            selectScholarship={this.selectScholarship}
+            addSelectedScholarships={this.addSelectedScholarships}
+            filterCities={this.state.cities}
+            filterCourses={this.state.courses} />
+        }
       </>
     );
   }

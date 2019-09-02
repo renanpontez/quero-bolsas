@@ -15,7 +15,7 @@ export default function scholarshipReducer(state = initialState.scholarships, ac
     case REMOVE_SCHOLARSHIP:
       newState = [...state];
       newState = newState.filter((eachItem) => {
-        return eachItem.full_price != action.item.full_price ? eachItem : null;
+        return eachItem.id != action.item.id ? eachItem : null;
       });
 
       return newState;

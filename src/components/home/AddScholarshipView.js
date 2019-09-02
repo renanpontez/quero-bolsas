@@ -10,7 +10,11 @@ const Scholarships = ({items, selectScholarship}) => {
           return (
             <li className="each-scholarship" key={i}>
               <div className="each-info check">
-                <input type="checkbox" onClick={(e) => selectScholarship(e, item)} />
+                {item.enabled ? (
+                  <input type="checkbox" onClick={(e) => selectScholarship(e, item)} />
+                ) : (
+                  <input disabled="disabled" type="checkbox" />
+                )}
               </div>
               <div className="each-info logo">
                 <img src={item.university.logo_url} />
@@ -66,9 +70,13 @@ const AddScholarshipView = (props) => {
                   SELECIONE SUA CIDADE
                 </label>
                 <select>
-                  <option>
-                    Teste
-                  </option>
+                  {props.filterCities.map((item, i) => {
+                    return (
+                      <option key={i}>
+                        {item}
+                      </option>
+                    )
+                  })}
                 </select>
               </div>
               <div className="each-filter course">
@@ -76,9 +84,13 @@ const AddScholarshipView = (props) => {
                   SELECIONE O CURSO DE SUA PREFERÊNCIA
                 </label>
                 <select>
-                  <option>
-                    Teste
-                  </option>
+                  {props.filterCourses.map((item, i) => {
+                    return (
+                      <option key={i}>
+                        {item}
+                      </option>
+                    )
+                  })}
                 </select>
               </div>
               <div className="each-filter type">
@@ -115,7 +127,7 @@ const AddScholarshipView = (props) => {
           <div style={{clear: "both"}} />
 
           <div className="modal-action">
-            <a className="btn outline" href="#">Cancelar</a>
+            <a className="btn outline" href="#" onClick={props.toggleAddScolarship}>Cancelar</a>
             <a className="btn contained" href="#" onClick={props.addSelectedScholarships}>Adicionar bolsa(s)</a>
           </div>
         </div>

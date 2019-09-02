@@ -24,17 +24,7 @@ const HomeView = (props) => {
         </div>
 
 
-        <a href="#" className="add-scorlaship" onClick={props.toggleAddScolarship}>
-          <div className="card">
-            <div className="icon">
-              <FontAwesomeIcon icon="plus" size="2x"/>
-            </div>
-            <span className="title">Adicionar bolsa</span>
-            <span className="description">Clique para adicionar bolsas de cursos do seu interesse</span>
-          </div>
-        </a>
-        
-        <ListScholarshipsContainer items={props.scholarshipsList} />
+        <ListScholarshipsContainer />
       </div>
     </>
   )
