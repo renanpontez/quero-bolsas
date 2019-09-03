@@ -230,3 +230,13 @@ input[type=range]::-webkit-slider-runnable-track {
   border-bottom: 2px solid $mainBlue;
   background-color: transparent;
 }
+
+
+.input-range__slider {    
+  background-color: white;
+    border-color: $mainBlue;
+}
+
+.input-range__track--active {
+  background-color: $mainBlue;
+}

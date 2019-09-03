@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from '../_common/Loading';
 import { FILTER_CITY, FILTER_CITY_ALL, FILTER_COURSE, FILTER_COURSE_ALL, PRESENTIAL, DISTANCE, FILTER_MAX_PRICE } from '../../constants/Utils';
 import { hash } from '../../helpers/hash';
+import InputRange from 'react-input-range';
+import "react-input-range/lib/css/index.css";
+
 
 const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen}) => {
   if(items.length) {
@@ -57,6 +60,9 @@ const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen})
 }
 
 const AddScholarshipView = (props) => {
+  const [price, setPrice] = useState(props.rangeOfPrice.value);
+
+
   return (
     <div id="AddScolarshipModal">
       <div className="modal">
@@ -126,7 +132,16 @@ const AddScholarshipView = (props) => {
                 <label className="filter-title">
                   ATÉ QUANTO PODE PAGAR?
                 </label>
-                <p>R$ {props.rangeOfPrice.value}</p>
+                <p className="filter-price">R$ {props.rangeOfPrice.value.toFixed(2)}</p>
+
+                <InputRange
+                  value={price}
+                  minValue={props.rangeOfPrice.min} 
+                  maxValue={props.rangeOfPrice.max} 
+                  formatLabel={value => ``}
+                  onChange={value => setPrice(value)}
+                  onChangeComplete={value => props.handleFilterChange({ target: { id: FILTER_MAX_PRICE, value: value } })} />
+{/* 
                 <input 
                   id={FILTER_MAX_PRICE}
                   type="range" 
@@ -134,7 +149,7 @@ const AddScholarshipView = (props) => {
                   max={props.rangeOfPrice.max} 
                   step="100"
                   value={props.rangeOfPrice.value}
-                  onChange={props.handleFilterChange} />
+                  onChange={props.handleFilterChange} /> */}
               </div>
             </div>
             <div style={{clear: "both"}} />

@@ -87,6 +87,14 @@
           }
         }
       }
+
+      &.price {
+        .filter-price {
+          margin: 0;
+          font-size: 13px;
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 
