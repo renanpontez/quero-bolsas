@@ -1,18 +1,22 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from '../_common/Loading';
-import { FILTER_CITY, FILTER_CITY_ALL, FILTER_COURSE, FILTER_COURSE_ALL, PRESENTIAL, DISTANCE } from '../../constants/Utils';
+import { FILTER_CITY, FILTER_CITY_ALL, FILTER_COURSE, FILTER_COURSE_ALL, PRESENTIAL, DISTANCE, FILTER_MAX_PRICE } from '../../constants/Utils';
+import { hash } from '../../helpers/hash';
 
-const Scholarships = ({items, filtering, selectScholarship}) => {
+const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen}) => {
   if(items.length) {
     return (
       <ul className="scholarship-list">
         {items.map((item, i) => {
+          let checkStatus = Boolean(scholarshipsChosen.find(x => x.id == hash(item)));
+
+
           return (
             <li className="each-scholarship" key={i}>
               <div className="each-info check">
                 {item.enabled ? (
-                  <input type="checkbox" onClick={(e) => selectScholarship(e, item)} />
+                  <input type="checkbox" value={checkStatus} checked={checkStatus} onChange={(e) => selectScholarship(e, item)} />
                 ) : (
                   <input disabled="disabled" type="checkbox" />
                 )}
@@ -33,7 +37,7 @@ const Scholarships = ({items, filtering, selectScholarship}) => {
                   Bolsa de <span className="value">{item.discount_percentage}%</span>
                 </span>
                 <span className="monthly">
-                  R$ {item.full_price}/mês
+                  R$ {item.price_with_discount}/mês
                 </span>
               </div>
             </li>
@@ -122,7 +126,15 @@ const AddScholarshipView = (props) => {
                 <label className="filter-title">
                   ATÉ QUANTO PODE PAGAR?
                 </label>
-                SLIDER
+                <p>R$ {props.rangeOfPrice.value}</p>
+                <input 
+                  id={FILTER_MAX_PRICE}
+                  type="range" 
+                  min={props.rangeOfPrice.min} 
+                  max={props.rangeOfPrice.max} 
+                  step="100"
+                  value={props.rangeOfPrice.value}
+                  onChange={props.handleFilterChange} />
               </div>
             </div>
             <div style={{clear: "both"}} />
@@ -131,7 +143,8 @@ const AddScholarshipView = (props) => {
               <Scholarships 
                 filtering={props.filterOptions.length > 0}
                 items={props.listOfScolarships}
-                selectScholarship={props.selectScholarship} />
+                selectScholarship={props.selectScholarship}
+                scholarshipsChosen={props.scholarshipsChosen} />
             </div>
           </div>
 

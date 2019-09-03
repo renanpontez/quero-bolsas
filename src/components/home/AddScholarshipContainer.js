@@ -33,6 +33,11 @@ class AddScholarshipContainer extends React.Component {
       recentlyAdded: false,
       cities: [],
       courses: [],
+      rangeOfPrice: {
+        min: 0,
+        max: 0,
+        value: 0
+      },
       typeOfCourse: {
         presential: true,
         distance: true
@@ -65,7 +70,12 @@ class AddScholarshipContainer extends React.Component {
         _self.setState({
           scholarships: res.scholarships,
           cities: res.cities,
-          courses: res.courses
+          courses: res.courses,
+          rangeOfPrice: {
+            min: res.minPrice,
+            max: res.maxPrice,
+            value: res.maxPrice
+          }
         });
       }
     });
@@ -109,35 +119,45 @@ class AddScholarshipContainer extends React.Component {
   handleFilterChange(e) {
     let _self = this;
     let filterOptions = [...this.state.filterOptions];
+    let rangeOfPrice =  this.state.rangeOfPrice;
+    let target = {
+      id: e.target.id,
+      value: e.target.value
+    }
 
 
-    if (e.target.value == FILTER_CITY_ALL || e.target.value == FILTER_COURSE_ALL || e.target.value == FILTER_TYPE_ALL || e.target.value == FILTER_MAX_PRICE_ALL) {
-      filterOptions = filterOptions.filter(x => x.type != e.target.id);
-    } else {
-      if(filterOptions.find(x => x.type == e.target.id)) {
+    if (target.value == FILTER_CITY_ALL || target.value == FILTER_COURSE_ALL) {
+      filterOptions = filterOptions.filter(x => x.type != target.id);
+    }
+    else {
+      if(target.id == FILTER_MAX_PRICE) {
+        rangeOfPrice = objectAssign({}, rangeOfPrice, { value: target.value });
+        target.value = parseFloat(target.value);
+      } 
 
+      if(filterOptions.find(x => x.type == target.id)) {
         filterOptions = filterOptions.filter((eachFilter) => {
-          if(eachFilter.type ==  e.target.id) {
-            eachFilter.value = e.target.value;
+          if(eachFilter.type ==  target.id) {
+            eachFilter.value = target.value;
           } 
 
           return eachFilter;
-
         });
      }
      else {
        filterOptions.push({
-        type: e.target.id, 
-        value: e.target.value
+        type: target.id, 
+        value: target.value
       });
      }
-
     }
 
     getScholarships(_self.props.scholarships, filterOptions).then(res => {
       _self.setState({
         scholarships: res.scholarships,
-        filterOptions: filterOptions
+        filterOptions: filterOptions,
+        scholarshipsChosen: [],
+        rangeOfPrice: rangeOfPrice
       })
     });
 
@@ -170,10 +190,12 @@ class AddScholarshipContainer extends React.Component {
       _self.setState({
         scholarships: res.scholarships,
         filterOptions: filterOptions,
-        typeOfCourse: newState
+        typeOfCourse: newState,
+        scholarshipsChosen: []
       })
     });
   }
+
 
   render() {
     return (
@@ -194,7 +216,8 @@ class AddScholarshipContainer extends React.Component {
             handleFilterChange={this.handleFilterChange}
             filterOptions={this.state.filterOptions}
             handleFilterTypeOfCourse={this.handleFilterTypeOfCourse}
-            scholarshipsChosen={this.state.scholarshipsChosen} />
+            scholarshipsChosen={this.state.scholarshipsChosen}
+            rangeOfPrice={this.state.rangeOfPrice} />
         }
       </>
     );

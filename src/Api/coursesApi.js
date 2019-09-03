@@ -26,7 +26,8 @@ export async function getScholarships(actualFavorites, filterOptions) {
     let resJson = await res.json();
     let cities = [];
     let courses = [];
-
+    let minPrice = resJson[0].price_with_discount;
+    let maxPrice = resJson[0].price_with_discount;
 
     if(filterOptions) {
       filterOptions.map((eachFilter) => {
@@ -44,6 +45,14 @@ export async function getScholarships(actualFavorites, filterOptions) {
           filterResult = filterResult.filter(x => x.course.kind == eachFilter.value);
         }
 
+        if(eachFilter.type == FILTER_MAX_PRICE) {
+          filterResult = filterResult.filter((item) => {
+            if(item.price_with_discount <= eachFilter.value) {
+              return item;
+            }
+          });
+        }
+
         resJson = filterResult;
       });
     }
@@ -57,17 +66,26 @@ export async function getScholarships(actualFavorites, filterOptions) {
         courses.push(item.course.name);
       }
 
+
+      if(item.price_with_discount < minPrice) {
+        minPrice = item.price_with_discount;
+      }
+
+      if(item.price_with_discount > maxPrice) {
+        maxPrice = item.price_with_discount;
+      }
+
+
       //Do not show on list courses already marked as favorite
       if(!actualFavorites.find(x => x.id == hash(item))) {
         return item;
       }
-
-     
-
     });
     
 
     return {
+      minPrice,
+      maxPrice,
       cities,
       courses,
       scholarships: resJson
