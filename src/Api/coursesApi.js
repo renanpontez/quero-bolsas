@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import { hash } from '../helpers/hash';
+import { sortByCollegeName } from "../helpers/sort";
 const ENDPOINT_URL = "https://testapi.io/api/redealumni/scholarships";
 import { 
   FILTER_CITY, 
@@ -82,13 +83,15 @@ export async function getScholarships(actualFavorites, filterOptions) {
       }
     });
     
+    courses.sort();
+    cities.sort();
 
     return {
       minPrice,
       maxPrice,
       cities,
       courses,
-      scholarships: resJson
+      scholarships: resJson.sort(sortByCollegeName)
     };
 
   } catch(e) {

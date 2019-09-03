@@ -18,11 +18,16 @@ const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen})
           return (
             <li className="each-scholarship" key={i}>
               <div className="each-info check">
-                {item.enabled ? (
-                  <input type="checkbox" value={checkStatus} checked={checkStatus} onChange={(e) => selectScholarship(e, item)} />
-                ) : (
-                  <input disabled="disabled" type="checkbox" />
-                )}
+           
+                <label class="checkbox-container">
+                  <input 
+                    disabled={!item.enabled} 
+                    type="checkbox" value={checkStatus} 
+                    checked={checkStatus} onChange={(e) => selectScholarship(e, item)} />
+                  <span class="checkmark"></span>
+                </label>
+
+               
               </div>
               <div className="each-info logo">
                 <img src={item.university.logo_url} />
@@ -119,13 +124,19 @@ const AddScholarshipView = (props) => {
                 </label>
 
                 <div className="input-group">
-                  <input name={PRESENTIAL} type="checkbox" checked={props.typeOfCourse.presential}  onChange={props.handleFilterTypeOfCourse}/>
-                  <label>Presencial</label>
+                  <label class="checkbox-container">Presencial
+                    <input name={PRESENTIAL} type="checkbox" checked="checked" checked={props.typeOfCourse.presential}  onChange={props.handleFilterTypeOfCourse}/>
+                    <span class="checkmark"></span>
+                  </label>
+
+                 
 
                 </div>
                 <div className="input-group">
-                  <input name={DISTANCE} type="checkbox" checked={props.typeOfCourse.distance} onChange={props.handleFilterTypeOfCourse}/>
-                  <label>A distância</label>
+                   <label class="checkbox-container">A distância
+                      <input name={DISTANCE} type="checkbox" checked="checked" checked={props.typeOfCourse.distance}  onChange={props.handleFilterTypeOfCourse}/>
+                      <span class="checkmark"></span>
+                  </label>
                 </div>
               </div>
               <div className="each-filter price">
@@ -151,10 +162,24 @@ const AddScholarshipView = (props) => {
                   value={props.rangeOfPrice.value}
                   onChange={props.handleFilterChange} /> */}
               </div>
+              
+              <div style={{clear: "both"}} />
             </div>
-            <div style={{clear: "both"}} />
           
             <div className="main-content">
+              <div className="title-and-order">
+                <label className="result-title">
+                  Resultado:
+                </label>
+                <div className="order-by">
+                  <label className="result-title">
+                    Ordenar por
+                  </label>
+                  <select className="order-filter">
+                    <option>Nome da Faculdade</option>
+                  </select>
+                </div>
+              </div>
               <Scholarships 
                 filtering={props.filterOptions.length > 0}
                 items={props.listOfScolarships}

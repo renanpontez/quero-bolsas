@@ -46,7 +46,7 @@
       padding-right: 30px;
     }
     .modal-title {
-      padding-top: 30px;
+      padding-top: 20px;
     }
   }
 
@@ -54,7 +54,7 @@
   .filters {
     padding-left: 20px;;
     padding-right: 20px;
-
+    margin-bottom: 20px;
 
     .each-filter {
       width: calc(50% - 20px);
@@ -107,6 +107,44 @@
     color: white;
     border-radius: 3px;
   }
+
+  .title-and-order {
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: bold;
+
+    .result-title {
+      font-size: 12px;
+    }
+
+    .order-by {
+      float: right;
+      text-align: right;
+
+      .order-filter {
+        display: inline-block;
+        width: auto;
+        height: 20px;
+        border: 0;
+        color: $mainBlue;
+        font-weight: bold;
+        padding-left: 5px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        &:-ms-expand {
+          display: none;
+        }
+
+        &:focus,
+        &:hover {
+          outline: none;
+        }
+      }
+    }
+  }
 }
 
 .scholarship-list {
@@ -115,9 +153,11 @@
   padding-left: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 300px;
+  height: 250px;
   padding-right: 10px;
-  
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+
   li {
     width: 100%;
     font-size: 12px;
