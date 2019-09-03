@@ -1,9 +1,21 @@
 import fetch from "node-fetch";
 import { hash } from '../helpers/hash';
 const ENDPOINT_URL = "https://testapi.io/api/redealumni/scholarships";
+import { 
+  FILTER_CITY, 
+  FILTER_CITY_ALL, 
+  FILTER_COURSE, 
+  FILTER_COURSE_ALL, 
+  FILTER_TYPE, 
+  FILTER_TYPE_ALL, 
+  FILTER_MAX_PRICE, 
+  FILTER_MAX_PRICE_ALL, 
+  PRESENTIAL,
+  DISTANCE
+} from '../constants/Utils';
 
 
-export async function getScholarships(actualFavorites) {
+export async function getScholarships(actualFavorites, filterOptions) {
   try {
     
     let res = await fetch(ENDPOINT_URL, {
@@ -15,6 +27,27 @@ export async function getScholarships(actualFavorites) {
     let cities = [];
     let courses = [];
 
+
+    if(filterOptions) {
+      filterOptions.map((eachFilter) => {
+        let filterResult = resJson;
+
+        if(eachFilter.type == FILTER_CITY) {
+          filterResult = filterResult.filter(x => x.campus.city == eachFilter.value);
+        }
+
+        if(eachFilter.type == FILTER_COURSE) {
+          filterResult = filterResult.filter(x => x.course.name == eachFilter.value);
+        }
+
+        if(eachFilter.type == FILTER_TYPE) {
+          filterResult = filterResult.filter(x => x.course.kind == eachFilter.value);
+        }
+
+        resJson = filterResult;
+      });
+    }
+
     resJson = resJson.filter((item) => {
       if(cities.indexOf(item.campus.city) == -1) {
         cities.push(item.campus.city);
@@ -24,11 +57,15 @@ export async function getScholarships(actualFavorites) {
         courses.push(item.course.name);
       }
 
-      //Do not show on list courses already favorited
+      //Do not show on list courses already marked as favorite
       if(!actualFavorites.find(x => x.id == hash(item))) {
         return item;
       }
+
+     
+
     });
+    
 
     return {
       cities,

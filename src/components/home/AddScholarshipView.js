@@ -1,9 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loading from '../_common/Loading';
+import { FILTER_CITY, FILTER_CITY_ALL, FILTER_COURSE, FILTER_COURSE_ALL, PRESENTIAL, DISTANCE } from '../../constants/Utils';
 
-const Scholarships = ({items, selectScholarship}) => {
-  if(items) {
+const Scholarships = ({items, filtering, selectScholarship}) => {
+  if(items.length) {
     return (
       <ul className="scholarship-list">
         {items.map((item, i) => {
@@ -43,6 +44,9 @@ const Scholarships = ({items, selectScholarship}) => {
       </ul>
     )
   } 
+  else if(filtering) {
+    return <div className="no-result">Nenhum resultado para o filtro escolhido</div>
+  }
   else {
     return <Loading />
   }
@@ -69,7 +73,10 @@ const AddScholarshipView = (props) => {
                 <label className="filter-title">
                   SELECIONE SUA CIDADE
                 </label>
-                <select>
+                <select id={FILTER_CITY} onChange={props.handleFilterChange}>
+                  <option value={FILTER_CITY_ALL}>
+                    Todas as cidades
+                  </option>
                   {props.filterCities.map((item, i) => {
                     return (
                       <option key={i}>
@@ -83,7 +90,10 @@ const AddScholarshipView = (props) => {
                 <label className="filter-title">
                   SELECIONE O CURSO DE SUA PREFERÊNCIA
                 </label>
-                <select>
+                <select id={FILTER_COURSE} onChange={props.handleFilterChange} >
+                  <option value={FILTER_CITY_ALL}>
+                    Todas os cursos
+                  </option>
                   {props.filterCourses.map((item, i) => {
                     return (
                       <option key={i}>
@@ -99,12 +109,12 @@ const AddScholarshipView = (props) => {
                 </label>
 
                 <div className="input-group">
-                  <input type="checkbox" value={props.typeOfCourse.presential}/>
+                  <input name={PRESENTIAL} type="checkbox" checked={props.typeOfCourse.presential}  onChange={props.handleFilterTypeOfCourse}/>
                   <label>Presencial</label>
 
                 </div>
                 <div className="input-group">
-                  <input type="checkbox" value={props.typeOfCourse.distance}/>
+                  <input name={DISTANCE} type="checkbox" checked={props.typeOfCourse.distance} onChange={props.handleFilterTypeOfCourse}/>
                   <label>A distância</label>
                 </div>
               </div>
@@ -119,6 +129,7 @@ const AddScholarshipView = (props) => {
           
             <div className="main-content">
               <Scholarships 
+                filtering={props.filterOptions.length > 0}
                 items={props.listOfScolarships}
                 selectScholarship={props.selectScholarship} />
             </div>
@@ -128,7 +139,12 @@ const AddScholarshipView = (props) => {
 
           <div className="modal-action">
             <a className="btn outline" href="#" onClick={props.toggleAddScolarship}>Cancelar</a>
-            <a className="btn contained" href="#" onClick={props.addSelectedScholarships}>Adicionar bolsa(s)</a>
+            {props.scholarshipsChosen.length > 0 ? (
+              <a className="btn contained" href="#" onClick={props.addSelectedScholarships}>Adicionar bolsa(s)</a>
+            ) : 
+            (
+              <a className="btn contained disabled" href="#">Adicionar bolsa(s)</a>
+            )}
           </div>
         </div>
       </div>

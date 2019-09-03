@@ -3,10 +3,22 @@ import AddScholarshipView from './AddScholarshipView';
 import AddScholarshipButton from './AddScholarshipButton';
 import { getScholarships } from '../../Api/coursesApi';
 import objectAssign from 'object-assign';
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/scholarshipAction';
 import { hash } from '../../helpers/hash';
+import { 
+  FILTER_CITY, 
+  FILTER_CITY_ALL, 
+  FILTER_COURSE, 
+  FILTER_COURSE_ALL, 
+  FILTER_TYPE, 
+  FILTER_TYPE_ALL, 
+  FILTER_MAX_PRICE, 
+  FILTER_MAX_PRICE_ALL, 
+  PRESENTIAL,
+  DISTANCE
+} from '../../constants/Utils';
 
 class AddScholarshipContainer extends React.Component {
   constructor(props) {
@@ -15,6 +27,8 @@ class AddScholarshipContainer extends React.Component {
     this.state = {
       addScholarshipShowing: false,
       scholarships: [],
+      filtering: false,
+      scholarshipsFiltered: [],
       scholarshipsChosen: [],
       recentlyAdded: false,
       cities: [],
@@ -22,20 +36,23 @@ class AddScholarshipContainer extends React.Component {
       typeOfCourse: {
         presential: true,
         distance: true
-      }
+      },
+      filterOptions: []
     }
-    
+
     this.selectScholarship = this.selectScholarship.bind(this);
     this.addSelectedScholarships = this.addSelectedScholarships.bind(this);
     this.toggleAddScolarship = this.toggleAddScolarship.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.handleFilterTypeOfCourse = this.handleFilterTypeOfCourse.bind(this);
   }
 
   componentDidMount() {
     this.updateScholarships();
-  } 
+  }
 
-  componentDidUpdate(prevProps) {
-    if(this.props.scholarships.length != prevProps.scholarships.length) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.scholarships.length != prevProps.scholarships.length || (!this.state.addScholarshipShowing && this.state.addScholarshipShowing != prevState.addScholarshipShowing)) {
       this.updateScholarships();
     }
   }
@@ -44,7 +61,7 @@ class AddScholarshipContainer extends React.Component {
     let _self = this;
 
     getScholarships(_self.props.scholarships).then(res => {
-      if(res) {
+      if (res) {
         _self.setState({
           scholarships: res.scholarships,
           cities: res.cities,
@@ -58,7 +75,7 @@ class AddScholarshipContainer extends React.Component {
     let checked = e.target.checked;
     let newState = [...this.state.scholarshipsChosen];
 
-    if(checked) {
+    if (checked) {
       newState.push(objectAssign({}, item, { id: hash(item) }));
     } else {
       newState = newState.filter((eachScholarship) => {
@@ -66,7 +83,7 @@ class AddScholarshipContainer extends React.Component {
       });
     }
 
-    return this.setState({scholarshipsChosen: newState});
+    return this.setState({ scholarshipsChosen: newState });
   }
 
   addSelectedScholarships() {
@@ -78,9 +95,83 @@ class AddScholarshipContainer extends React.Component {
   }
 
   toggleAddScolarship() {
-    this.setState({ 
+    this.setState({
       addScholarshipShowing: !this.state.addScholarshipShowing,
-      scholarshipsChosen: []
+      scholarshipsChosen: [],
+      filterOptions: [],
+      typeOfCourse: {
+        presential: true,
+        distance: true
+      },
+    });
+  }
+
+  handleFilterChange(e) {
+    let _self = this;
+    let filterOptions = [...this.state.filterOptions];
+
+
+    if (e.target.value == FILTER_CITY_ALL || e.target.value == FILTER_COURSE_ALL || e.target.value == FILTER_TYPE_ALL || e.target.value == FILTER_MAX_PRICE_ALL) {
+      filterOptions = filterOptions.filter(x => x.type != e.target.id);
+    } else {
+      if(filterOptions.find(x => x.type == e.target.id)) {
+
+        filterOptions = filterOptions.filter((eachFilter) => {
+          if(eachFilter.type ==  e.target.id) {
+            eachFilter.value = e.target.value;
+          } 
+
+          return eachFilter;
+
+        });
+     }
+     else {
+       filterOptions.push({
+        type: e.target.id, 
+        value: e.target.value
+      });
+     }
+
+    }
+
+    getScholarships(_self.props.scholarships, filterOptions).then(res => {
+      _self.setState({
+        scholarships: res.scholarships,
+        filterOptions: filterOptions
+      })
+    });
+
+  }
+
+  handleFilterTypeOfCourse(e) {
+    let _self = this;
+    let newState = objectAssign({}, this.state.typeOfCourse);
+
+    if(e.target.name == PRESENTIAL) {
+      newState.presential = e.target.checked;
+    } else {
+      newState.distance = e.target.checked;
+    }
+
+    let filterTypeOption = { type: FILTER_TYPE, value: null };
+    
+    if(newState.presential) filterTypeOption.value = PRESENTIAL;
+    if(newState.distance) filterTypeOption.value = DISTANCE;
+
+    let filterOptions = [...this.state.filterOptions];
+
+    if(filterTypeOption.value == null || (newState.presential && newState.distance)) {
+      filterOptions = filterOptions.filter(x => x.type != FILTER_TYPE);
+    } else {
+      filterOptions.push(filterTypeOption);
+    }
+
+    getScholarships(_self.props.scholarships, filterOptions).then(res => {
+      _self.setState({
+        scholarships: res.scholarships,
+        filterOptions: filterOptions,
+        typeOfCourse: newState
+      })
     });
   }
 
@@ -89,15 +180,21 @@ class AddScholarshipContainer extends React.Component {
       <>
         <AddScholarshipButton toggleAddScolarship={this.toggleAddScolarship} />
 
-        {this.state.addScholarshipShowing && 
+        {this.state.addScholarshipShowing &&
           <AddScholarshipView
             toggleAddScolarship={this.toggleAddScolarship}
             listOfScolarships={this.state.scholarships}
+            filtering={this.state.filtering}
+            listOfScolarshipsFiltered={this.state.scholarshipsFiltered}
             selectScholarship={this.selectScholarship}
             addSelectedScholarships={this.addSelectedScholarships}
             filterCities={this.state.cities}
             filterCourses={this.state.courses}
-            typeOfCourse={this.state.typeOfCourse} />
+            typeOfCourse={this.state.typeOfCourse}
+            handleFilterChange={this.handleFilterChange}
+            filterOptions={this.state.filterOptions}
+            handleFilterTypeOfCourse={this.handleFilterTypeOfCourse}
+            scholarshipsChosen={this.state.scholarshipsChosen} />
         }
       </>
     );

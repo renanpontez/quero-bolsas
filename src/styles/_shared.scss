@@ -52,6 +52,13 @@ a {
     background-color: $mainYellow;
     color: $blackText;
   }
+
+  &.disabled {
+    cursor: default;
+    background-color: #9c9c9c;
+    color: #fbfbfb;
+    border: 1px solid transparent;
+  }
 }
 
 .modal {
