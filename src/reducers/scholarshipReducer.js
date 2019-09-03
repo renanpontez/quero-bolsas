@@ -1,4 +1,4 @@
-import { ADD_SCHOLARSHIP, REMOVE_SCHOLARSHIP } from '../constants/actionTypes';
+import { ADD_SCHOLARSHIP, REMOVE_SCHOLARSHIP } from '../constants/ActionTypes';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
 

@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/ActionTypes';
 
 export function addScholarship(items) {
   return async function (dispatch) {
