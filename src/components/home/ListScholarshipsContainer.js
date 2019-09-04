@@ -33,7 +33,9 @@ class ListScholarshipsContainer extends React.Component {
     });
   }
 
-  removeScholarship(item) {
+  removeScholarship(e, item) {
+    e.preventDefault();
+    
     let _self = this;
     item = objectAssign({}, item, { id: hash(item) });
 

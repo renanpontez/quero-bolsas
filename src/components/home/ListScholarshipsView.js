@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddScholarshipContainer from './AddScholarshipContainer';
 
 const Score = ({ score }) => {
@@ -61,7 +60,7 @@ const ListOfItems = (props) => {
                 </div>
 
                 <div className="actions">
-                  <a className="btn sm outlined" href="#" onClick={() => props.removeScholarship(item)}>exluir</a>
+                  <a className="btn sm outlined" href="#" onClick={e => props.removeScholarship(e, item)}>exluir</a>
                   <a className="btn sm contained yellow" href="#">Ver oferta</a>
                 </div>
                 {item.title}

@@ -57,3 +57,27 @@ $heightSize: 80px;
 
 
 }
+
+
+
+
+/*#region Mobile*/
+
+@media screen and (max-width: 500px) {
+  #TopBar {
+    padding: 0;
+    height: auto;
+    
+    .how-works, .talk-to-us, .divisor {
+      display: none;
+    }
+
+    .logo {
+      height: 60px;
+      margin-left: 0;
+    }
+  }
+}
+
+
+/*#endregion Mobile*/

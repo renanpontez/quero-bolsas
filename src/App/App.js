@@ -8,9 +8,9 @@ import AppRoute from './AppRoute';
 import InternalLayout from '../components/_common/layout/InternalLayout';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import {  faInfoCircle, faPlus, faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {  faInfoCircle, faPlus, faTimes, faSpinner, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, faInfoCircle, faPlus, faTimes, faSpinner)
+library.add(fab, faInfoCircle, faPlus, faTimes, faSpinner, faChevronDown)
 
 class App extends React.Component {
   render() {

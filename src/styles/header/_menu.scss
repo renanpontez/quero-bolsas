@@ -18,4 +18,80 @@
       background-color: $secondaryBlue;
     }
   }
+
+  #TopMenu {
+    display: none;
+  }
 }
+
+
+/*#region Mobile*/
+
+@media screen and (max-width: 500px) {
+  #TopMenu {
+    padding: 0;
+    height: auto;
+    text-align: right;
+
+    .collapse-menu {
+      color: white;
+      text-align: right;
+      padding: 10px 20px;
+      font-size: 25px;
+
+      svg {
+        font-size: 20px;
+        transition: all 300ms ease-out;
+      }
+
+      &:before {
+        content: "Menu";
+        margin-right: 10px;
+        font-size: 16px;
+        line-height: 25px;
+        vertical-align: middle;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      &:hover,
+      &:active {
+        background-color: transparent;
+      }
+    }
+
+    .container {
+      padding: 0;
+
+      .links-list {
+        max-height: 0;
+        transition: max-height 300ms ease-out;
+        overflow: hidden;
+        width: 100%;
+
+       
+        
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &.show {
+    .collapse-menu {
+      svg {
+        transition: all 300ms ease-out;
+        transform: rotate(180deg);
+      }
+    }
+
+    .links-list {
+      max-height: 300px !important;
+    }
+  }
+
+}
+
+
+/*#endregion Mobile*/
