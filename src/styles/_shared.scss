@@ -130,6 +130,20 @@ a {
   padding-left: 0;
 
   li {
+    display: inline;
+
+    &:first-child a {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-right: 0;
+    }
+
+    &:last-child a {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-left: 0;
+    }
+
     a {
       color: $secondaryBlue;
       border: 1px solid $secondaryBlue;
@@ -138,17 +152,7 @@ a {
       font-size: 11px;
       font-weight: bold;
       transition: all 300ms ease-in;
-      &:first-child {
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-        border-right: 0;
-      }
-
-      &:last-child {
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-left: 0;
-      }
+     
 
       &:hover,
       &.active {

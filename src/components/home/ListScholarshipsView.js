@@ -1,25 +1,25 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import AddScholarshipContainer from './AddScholarshipContainer';
 
-
-const Score = ({score}) => {
+const Score = ({ score }) => {
   let stars = [];
-  
-  for(let i = 1; i < 6; i++) {
-    if(score >= 1.0) {
+
+  for (let i = 1; i < 6; i++) {
+    if (score >= 1.0) {
       stars.push({ status: "fill" })
-    } else if(score == 0.5) {
+    } else if (score > 0 && score < 1) {
       stars.push({ status: "half" })
     } else {
       stars.push({ status: "clear" })
     }
-    
+
     score -= 1.0;
   }
 
   return (
     <>
-      { stars.map((star) => {
+      {stars.map((star) => {
         return (
           <>
             <span className={`star ${star.status}`}>{star.status != "half" && <>★</>}</span>
@@ -30,9 +30,8 @@ const Score = ({score}) => {
   );
 }
 
-const ListScholarshipsView = (props) => {
-
-  if(props.items && props.items.length) {
+const ListOfItems = (props) => {
+  if (props.items && props.items.length) {
     return (
       <>
         {props.items.map((item, i) => {
@@ -45,9 +44,6 @@ const ListScholarshipsView = (props) => {
                 <span className="college-score">
                   <span className="score">{item.university.score}</span> <Score score={item.university.score} />
                 </span>
-
-
-
 
                 <div className="course-info">
                   <span className="course-type-and-hour">{item.course.kind} - {item.course.shift}</span>
@@ -72,13 +68,63 @@ const ListScholarshipsView = (props) => {
 
               </div>
             </div>
-          )    
+          )
         })}
       </>
     );
   } else {
     return <></>;
   }
+}
+
+
+const HalfYearNav = (props) => {
+  let options = [
+    {
+      text: 'Todos os semestres',
+      value: 'ALL'
+    },
+    {
+      text: '2º semestre de 2019',
+      value: '2019.2'
+    },
+    {
+      text: '1º semestre de 2020',
+      value: '2020.1'
+    },
+  ];
+
+  return (
+    <>
+     <div className="year-nav">
+        <ul className="tab-list">
+          {options.map((item, i) => {
+            return (
+              <li key={i}>
+                <a onClick={e => props.handler(e, item.value)} href="#" className={props.yearOption == item.value ? "active" : ""}>
+                  {item.text}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+
+
+const ListScholarshipsView = (props) => {
+
+  return (
+    <>
+      <HalfYearNav yearOption={props.yearOption} handler={props.handleYearNav} />
+      <AddScholarshipContainer toggleAddScolarship={props.toggleAddScolarship} />
+      <ListOfItems {...props} />
+    </>
+  );
+
 }
 
 export default ListScholarshipsView;

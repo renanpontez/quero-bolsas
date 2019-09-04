@@ -1,6 +1,6 @@
 .each-scholarship-on-list {
   float: left;
-  margin-left: 15px;
+  margin-right: 15px;
   max-width: 250px;
   text-align: center;
   display: inline;
@@ -13,10 +13,11 @@
     position: relative;
     
     .college-logo {
-      height: 50px;
       margin: 0 auto;
       display: block;
       padding-bottom: 10px;
+      max-width: 60%;
+      max-height: 40px;
     }
 
     .college-name {

@@ -5,13 +5,32 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/scholarshipAction';
 import objectAssign from 'object-assign';
 import { hash } from '../../helpers/hash';
-import AddScholarshipContainer from './AddScholarshipContainer';
 
 class ListScholarshipsContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      yearOption: "ALL",
+      itemsFiltered: []
+    }
+
+    this.handleYearNav = this.handleYearNav.bind(this);
     this.removeScholarship = this.removeScholarship.bind(this);
+  }
+
+  handleYearNav(e, option) {
+    e.preventDefault();
+    let items = [];
+
+    if(option != "ALL") {
+      items = this.props.scholarships.filter(x => x.enrollment_semester == option);
+    }
+
+    this.setState({ 
+      yearOption: option,
+      itemsFiltered: items
+    });
   }
 
   removeScholarship(item) {
@@ -26,11 +45,13 @@ class ListScholarshipsContainer extends React.Component {
   render() {
     return (
       <>
-        <AddScholarshipContainer toggleAddScolarship={this.toggleAddScolarship} />
 
         <ListScholarshipsView 
-          items={this.props.scholarships}
-          removeScholarship={this.removeScholarship} />
+          items={this.state.itemsFiltered.length > 0 ? this.state.itemsFiltered : this.props.scholarships}
+          removeScholarship={this.removeScholarship}
+          yearOption={this.state.yearOption}
+          handleYearNav={this.handleYearNav}
+          toggleAddScolarship={this.toggleAddScolarship} />
       </>
     );
   }
