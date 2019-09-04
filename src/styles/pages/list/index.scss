@@ -1,9 +1,122 @@
-.each-scholarship {
+.each-scholarship-on-list {
   float: left;
   margin-left: 15px;
+  max-width: 250px;
+  text-align: center;
+  display: inline;
+  margin-bottom: 20px;
 
   .card {
-    padding: 50% 30px;
+    font-size: 13px;
+    height: auto;
+    min-height: 370px;
+    position: relative;
+    
+    .college-logo {
+      height: 50px;
+      margin: 0 auto;
+      display: block;
+      padding-bottom: 10px;
+    }
 
+    .college-name {
+      font-weight: bold;
+      text-transform: uppercase;
+      display: block;
+      font-size: 11px;
+    }
+
+    .course-name {
+      font-weight: bold;
+      color: $secondaryBlue;
+    }
+
+    .college-score {
+      display: block;
+
+      .score {
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 0;
+        display: inline-block;
+        line-height: 19px;
+        vertical-align: text-bottom;
+        margin-right: 6px;
+      }
+
+
+      .star {
+        color: $mainYellow;
+        font-size: 24px;
+        &.half {
+          display: inline-flex;
+          opacity: 1;
+        }
+  
+        &.half:before {
+          content: '★';
+          background: -webkit-linear-gradient(left, $mainYellow 52%,#e3e3e3 52%); /* Chrome10-25,Safari5.1-6 */
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+  
+        &.clear {
+          color: #e3e3e3;
+        }
+      }
+    }
+
+    .course-info {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 1px solid #e3e3e3;
+      border-bottom: 1px solid #e3e3e3;
+
+      .course-type-and-hour {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 5px;
+      }
+    }
+
+    .scholarship-info {
+      .description {
+        font-weight: bold;
+        display: block;
+        margin: 10px;
+      }
+
+      .old-price {
+        text-decoration: line-through;
+        display: block;
+      }
+
+      .new-price {
+        font-weight: bold;
+        font-size: 16px;
+        color: $green;
+        margin-bottom: 10px;
+        display: block;
+
+        span {
+          font-size: 12px;
+          color: $blackText;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .actions {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+    }
   }
 }
+
+

@@ -16,7 +16,7 @@ const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen})
 
 
           return (
-            <li className="each-scholarship" key={i}>
+            <li className={item.enabled ? "enable" : "disabled"} key={i}>
               <div className="each-info check">
            
                 <label class="checkbox-container">

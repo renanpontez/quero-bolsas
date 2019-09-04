@@ -3,7 +3,19 @@ import React from 'react';
 const Breadcrumb = () => {
   return (
     <>
-      breadcrumb > teste
+      <div className="container">
+        <div className="breadcrumb">
+          <a href="#" className="each-step">
+            Home
+          </a>
+          <a href="#" className="each-step">
+            Minha conta
+          </a>
+          <a className="each-step actual">
+            Bolsas favoritas
+          </a>
+        </div>
+      </div>
     </>
   );
 }

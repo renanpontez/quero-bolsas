@@ -11,7 +11,7 @@ const Menu = () => {
           <a href="#">
             Pré-matrículas
           </a>
-          <a href="#">
+          <a href="#" className="active"> 
             Bolsas favoritas
           </a>
         </div>
