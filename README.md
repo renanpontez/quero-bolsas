@@ -1,6 +1,8 @@
 # QueroEdu - Teste Front
 
-Este é o resultado feito por mim para Quero. Neste teste foi utilizado o [React-Slingshot Boilerplate](https://github.com/coryhouse/react-slingshot).
+Este é o resultado feito por mim para Quero. Neste teste foi utilizado o [React-Slingshot Boilerplate](https://github.com/coryhouse/react-slingshot). 
+
+Obs: ainda falta a responsividade 100% pq deixei por ultimo pra dar atenção maior e alguns ajustes :|
 
 
 
