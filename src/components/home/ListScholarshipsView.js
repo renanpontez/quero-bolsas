@@ -22,7 +22,7 @@ const Score = ({ score }) => {
         return (
           <div key={i}>
             <span className={`star ${star.status}`}>{star.status != "half" && <>★</>}</span>
-          <div/>
+          </div>
         )
       })}
     </>
