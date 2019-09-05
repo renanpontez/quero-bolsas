@@ -48,6 +48,8 @@ const Scholarships = ({items, filtering, selectScholarship, scholarshipsChosen})
                   R$ {item.price_with_discount}/mês
                 </span>
               </div>
+              <div style={{clear: "both"}} />
+
             </li>
           )    
         })}
@@ -124,20 +126,20 @@ const AddScholarshipView = (props) => {
                 </label>
 
                 <div className="input-group">
-                  <label class="checkbox-container">Presencial
+                  <label className="checkbox-container">Presencial
                     <input name={PRESENTIAL} type="checkbox" checked="checked" checked={props.typeOfCourse.presential}  onChange={props.handleFilterTypeOfCourse}/>
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
-
-                 
-
                 </div>
                 <div className="input-group">
-                   <label class="checkbox-container">A distância
+                   <label className="checkbox-container">A distância
                       <input name={DISTANCE} type="checkbox" checked="checked" checked={props.typeOfCourse.distance}  onChange={props.handleFilterTypeOfCourse}/>
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                   </label>
                 </div>
+
+                <div style={{clear: "both"}} />
+
               </div>
               <div className="each-filter price">
                 <label className="filter-title">
@@ -179,6 +181,8 @@ const AddScholarshipView = (props) => {
                     <option>Nome da Faculdade</option>
                   </select>
                 </div>
+                <div style={{clear: "both"}} />
+
               </div>
               <Scholarships 
                 filtering={props.filterOptions.length > 0}

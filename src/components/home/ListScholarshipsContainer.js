@@ -19,8 +19,14 @@ class ListScholarshipsContainer extends React.Component {
     this.removeScholarship = this.removeScholarship.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.scholarships.length != this.props.scholarships.length) {
+      this.handleYearNav(null, this.state.yearOption);
+    }
+  }
+
   handleYearNav(e, option) {
-    e.preventDefault();
+    if(e) e.preventDefault();
     let items = [];
 
     if(option != "ALL") {
@@ -47,9 +53,9 @@ class ListScholarshipsContainer extends React.Component {
   render() {
     return (
       <>
-
         <ListScholarshipsView 
-          items={this.state.itemsFiltered.length > 0 ? this.state.itemsFiltered : this.props.scholarships}
+          items={this.props.scholarships}
+          itemsFiltered={this.state.itemsFiltered}
           removeScholarship={this.removeScholarship}
           yearOption={this.state.yearOption}
           handleYearNav={this.handleYearNav}

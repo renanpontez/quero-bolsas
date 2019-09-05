@@ -122,5 +122,17 @@
 
 
 
+/*#region Mobile*/
+
+@media screen and (max-width: 500px) {
+
+  .each-scholarship-on-list {
+    margin-top: 20px;
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
 
 
+/*#endregion Mobile*/

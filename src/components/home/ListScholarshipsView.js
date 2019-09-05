@@ -115,12 +115,13 @@ const HalfYearNav = (props) => {
 
 
 const ListScholarshipsView = (props) => {
-
+  let items = (props.yearOption == "ALL") ? props.items : props.itemsFiltered;
   return (
     <>
       <HalfYearNav yearOption={props.yearOption} handler={props.handleYearNav} />
       <AddScholarshipContainer toggleAddScolarship={props.toggleAddScolarship} />
-      <ListOfItems {...props} />
+
+      <ListOfItems items={items} removeScholarship={props.removeScholarship} />
     </>
   );
 
