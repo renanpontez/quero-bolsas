@@ -18,11 +18,11 @@ const Score = ({ score }) => {
 
   return (
     <>
-      {stars.map((star) => {
+      {stars.map((star, i) => {
         return (
-          <>
+          <div key={i}>
             <span className={`star ${star.status}`}>{star.status != "half" && <>★</>}</span>
-          </>
+          <div/>
         )
       })}
     </>
