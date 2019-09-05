@@ -5,8 +5,8 @@
   color: $blackText;
   font-size: 15px;
   float:left;
-  width: 250px;
   margin-right: 15px;
+  width: calc(100%/5 - 20px);
 
   .card {
     min-height: 370px;
