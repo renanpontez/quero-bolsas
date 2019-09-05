@@ -19,7 +19,7 @@
     }
   }
 
-  #TopMenu {
+  .collapse-menu {
     display: none;
   }
 }
@@ -34,6 +34,7 @@
     text-align: right;
 
     .collapse-menu {
+      display: inline-block !important;
       color: white;
       text-align: right;
       padding: 10px 20px;
@@ -62,6 +63,7 @@
 
     .container {
       padding: 0;
+      width: 100%;
 
       .links-list {
         max-height: 0;

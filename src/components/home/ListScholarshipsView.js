@@ -20,9 +20,9 @@ const Score = ({ score }) => {
     <>
       {stars.map((star, i) => {
         return (
-          <div key={i}>
+          <span key={i}>
             <span className={`star ${star.status}`}>{star.status != "half" && <>★</>}</span>
-          </div>
+          </span>
         )
       })}
     </>
