@@ -268,12 +268,16 @@
   #AddScolarshipModal {
 
     .modal {
+        padding-bottom: 200px;
+        height: auto;
+      
       .close-button {
         right: 10px;
       }    
       
       .modal-content {
         width: 100% !important;  
+        margin-bottom: 100px;
 
         .modal-title,
         .modal-description {
