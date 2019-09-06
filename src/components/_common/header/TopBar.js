@@ -25,6 +25,9 @@ const TopBar = () => {
           </a>
 
           <img className="logo" src="/assets/logo.png" />
+
+          <div style={{clear: "both"}}/>
+
         </div>
 
       </div>

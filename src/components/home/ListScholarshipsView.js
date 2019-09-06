@@ -122,6 +122,8 @@ const ListScholarshipsView = (props) => {
       <AddScholarshipContainer toggleAddScolarship={props.toggleAddScolarship} />
 
       <ListOfItems items={items} removeScholarship={props.removeScholarship} />
+
+      <div style={{clear: "both"}}/>
     </>
   );
 

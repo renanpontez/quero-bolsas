@@ -357,7 +357,7 @@ input[type=range]::-webkit-slider-runnable-track {
 
 /*#region Mobile*/
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
   .container {
     width: calc(100% - 40px);
     padding: 20px;

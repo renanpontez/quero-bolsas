@@ -239,7 +239,7 @@
 
 /*#region Mobile*/
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
   .add-scorlaship, each-scholarship-on-list {
     width: 100%;
     float: unset;
@@ -348,5 +348,17 @@
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+   .add-scorlaship, each-scholarship-on-list {
+    width: calc(50% - 20px) !important;
+    float: unset;
+  }
+
+  .add-scorlaship {
+    width: 100%;
+    display: block;
+
+  }
+}
 
 /*#endregion Mobile*/
